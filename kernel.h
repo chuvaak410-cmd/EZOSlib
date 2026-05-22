@@ -43,7 +43,7 @@ static inline void outb(uint16_t port, uint8_t val) {
 static void update_cursor() {
   uint16_t position = (cursor_y * MAXCOLS) + cursor_x;
   outb(REG_SCREEN_CTRL, 14);
-  outb(REG_SCREEN_DATA, (uint8_t))((position >> 8) & 0xFF);
+  outb(REG_SCREEN_DATA, (uint8_t)((position >> 8) & 0xFF));
   outb(REG_SCREEN_CTRL, 15);
   outb(REG_SCREEN_DATA, (uint8_t)(position & 0xFF));
 }
