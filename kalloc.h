@@ -5,7 +5,7 @@
 typedef struct BlockHeader {
   uint32_t size;
   uint8_t is_free;
-  struct BlockHeade* next;
+  struct BlockHeader* next;
 } BlockHeader;
 static BlockHeader* heap_start = (BlockHeader*)0x400000;
 static uint8_t is_heap_init = 0;
