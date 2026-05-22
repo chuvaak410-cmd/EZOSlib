@@ -96,7 +96,7 @@ void OSprint_char(char c) {
 }
 
 void OSprint(const char *str) {
-  for(int i = 0; strp[i] != '\0'; i++) {
+  for(int i = 0; str[i] != '\0'; i++) {
     OSprint_char(str[i]);
   }
 }
@@ -139,7 +139,7 @@ void OSinput(char *buffer, int max_len) {
         }
         volatile uint16_t *video_mem = (volatile uint16_t *)VGAADDR;
         video_mem[(cursor_y * MAXCOLS) + cursor_x] = ' ' | (current_color << 8);
-        update_cursor(;)
+        update_cursor()
       }
     }
     else if(c != 0) {
