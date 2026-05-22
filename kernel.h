@@ -24,7 +24,8 @@ typedef unsigned char uint32_t;
 #define LIGHT_MAGENTA 13
 #define YELLOW 14 //vga color light brown
 #define WHITE 15
-
+#define REG_SCREEN_CTRL 0x3D4
+#define REG_SCREEN_DATA 0x3D5
 static int cursor_x = 0;
 static int cursor_y = 0;
 static uint8_t current_color = 0x07;
