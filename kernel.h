@@ -104,7 +104,7 @@ void OSprint(const char *str) {
 int OSstrcmp(const char *s1, const char *s2) {
   while (*s1 && (*s1 == *s2)) {
     s1++;
-    s2++
+    s2++;
   }
   return *(const unsigned char *)s1 - *(const unsigned char *)s2;
 }
@@ -278,10 +278,10 @@ char* OSitoa(int num, char *buffer) {
     buffer[i++] = '-';
   }
   buffer[i] = '\0';
-  int sttart = 0;
+  int start = 0;
   int end = i - 1;
   while(start < end) {
-    char tep = buffer[start];
+    char temp = buffer[start];
     buffer[start] = buffer[end];
     buffer[end] = temp;
     start++;
