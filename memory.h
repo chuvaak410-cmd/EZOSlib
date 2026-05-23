@@ -1,6 +1,6 @@
 #ifndef EZOS_MEMORY
 #define EZOS_MEMORY
-#include "kernel.h";
+#include "kernel.h"
 
 static uint32_t free_memory_addr = 0x400000;
 void* OSalloc(uint32_t size) {
