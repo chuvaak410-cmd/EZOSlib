@@ -2,8 +2,8 @@
 #define EZOS_KERNEL
 
 typedef unsigned char uint8_t;
-typedef unsigned char uint16_t;
-typedef unsigned char uint32_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
 
 #define VGAADDR 0xB8000
 #define MAXROWS 25
@@ -117,7 +117,7 @@ void OSinput(char *buffer, int max_len) {
     '=', '+', '_', '\b',
     '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']',
     '{', '}', '\n',
-    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'. ';', ':', '\'', '"', '`', 0, '\\',
+    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':', '\'', '"', '`', 0, '\\',
     'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, '*', 0, ' ', 0
   };
   while(index < max_len - 1) {
@@ -140,7 +140,7 @@ void OSinput(char *buffer, int max_len) {
         }
         volatile uint16_t *video_mem = (volatile uint16_t *)VGAADDR;
         video_mem[(cursor_y * MAXCOLS) + cursor_x] = ' ' | (current_color << 8);
-        update_cursor()
+        update_cursor();
       }
     }
     else if(c != 0) {
@@ -311,18 +311,20 @@ static inline void OSparse_three(const char *text, char *a1, char *a2, char *a3)
 typedef struct {
   const char* name;
   void (*execute)(char* args);
-} command_t
+} command_t;
 
 static inline  uint32_t os_rdtsc() {
   uint32_t lo, hi;
   __asm__ volatile ("rdtsc" : "=a"(lo), "=d"(hi));
   return lo;
 }
-
+static inline void outw(uint16_t port, uint16_t val) {
+  __asm__ volatile ("outw %0, %1" : : "a"(val), "Nd"(port));
+}
 static inline void OSshutdown() {
-  outb(0x0B004, 0x2000);
-  outb(0x604, 0x2000);
-  outb(0x4004, 0x3400);
+  outw(0x0B004, 0x2000);
+  outw(0x604, 0x2000);
+  outw(0x4004, 0x3400);
   OSprint("Shutdown failed. Halted.");
   while(1) {
     __asm__ volatile("hlt");
