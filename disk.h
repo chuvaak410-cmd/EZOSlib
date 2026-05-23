@@ -20,9 +20,9 @@ void OSread_sector(uint16_t *target_buffer, uint32_t lba) {
   outb(ATA_COMMAND, 0x20);
   while((inb(ATA_STATUS) & 0x80));
   while(!(inb(ATA_STATUS) & 0x08));
-  for(int i = 0; i< 256; i++) {
+  for(int i = 0; i < 256; i++) {
     uint16_t data;
-    __asm__ volatile ("inw %1, %0" : "=a"(data) : "Nd"(ATA_DATA));
+    __asm__ volatile ("inw %w1, %0" : "=a"(data) : "d"(ATA_DATA));
     target_buffer[i] = data;
   }
 }
