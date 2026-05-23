@@ -2,7 +2,7 @@
 #define EZOS_KALLOC
 #include "kernel.h"
 
-typedef struct BlockHeader {
+typedef struct BlockHeader{
   uint32_t size;
   uint8_t is_free;
   struct BlockHeader* next;
@@ -11,9 +11,9 @@ static BlockHeader* heap_start = (BlockHeader*)0x400000;
 static uint8_t is_heap_init = 0;
 void kinit(uint32_t init_size) {
   heap_start->size = init_size - sizeof(BlockHeader);
-  heap_staer->is_free = 1;
+  heap_start->is_free = 1;
   heap_start->next = 0; //NULL
-  if_heap_init = 1;
+  is_heap_init = 1;
 }
 void* kalloc(uint32_t size) {
   if(!is_heap_init) {
@@ -43,7 +43,7 @@ void* kalloc(uint32_t size) {
 
 void kfree(void* ptr) {
   if(ptr == 0) return;
-  BlockHeader* header = (BlockHeader*)((uint32_t)ptr - sizeof(Blockheader));
+  BlockHeader* header = (BlockHeader*)((uint32_t)ptr - sizeof(BlockHeader));
   header->is_free = 1;
   BlockHeader* current = heap_start;
   while(current != 0 && current->next != 0) {
