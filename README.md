@@ -7,6 +7,7 @@ An eazy lib for create your OS right now
 #include "disk.h"
 #include "kalloc.h"
 #include "bool.h"
+#include "containers.h"
 
 /* Full demonstration of EZOS capabilities */
 void OSmain() {
