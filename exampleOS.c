@@ -3,6 +3,7 @@
 #include "disk.h"
 #include "kalloc.h"
 #include "bool.h"
+#include "containers.h"
 
 /* Full demonstration of EZOS capabilities */
 void OSmain() {
